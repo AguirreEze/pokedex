@@ -13,6 +13,7 @@ body {
   font-weight: 300;
   color: var(--text);
   background-color: var(--background);
+  min-height: 100vh;
 }
 
 a {
