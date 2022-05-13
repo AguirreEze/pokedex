@@ -1,0 +1,16 @@
+.header {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  height: 64px;
+  background-color: var(--background);
+}
+.title {
+  margin: 0;
+}
+
+.main {
+  min-height: calc(100vh - 128px);
+}
