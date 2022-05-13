@@ -19,6 +19,41 @@
     "@types/react-dom": "18.0.4",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "6.0.0",
+    "eslint-plugin-react": "7.29.4",
     "typescript": "4.6.4"
+  },
+  "prettier": {
+    "semi": false
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "node": true
+    },
+    "extends": [
+      "next/core-web-vitals",
+      "plugin:react/recommended",
+      "standard",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 13,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react"
+    ],
+    "rules": {
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off"
+    }
   }
 }
