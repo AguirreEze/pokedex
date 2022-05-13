@@ -1,0 +1,9 @@
+.button {
+  color: var(--text);
+  background-color: transparent;
+  border: 1px solid var(--text);
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1.5rem;
+  height: 3rem;
+}
