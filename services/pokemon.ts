@@ -1,8 +1,15 @@
-const baseURL = "https://pokeapi.co/api/v2/pokemon/"
+import { SearchType } from "types"
 
-export function getPokemonList<T>(): Promise<T> {
+const baseURL = "https://pokeapi.co/api/v2/pokemon?"
+
+export function getPokemonList<T>(search: SearchType): Promise<T> {
+  const params = {
+    offset: `${20 * search.page - 20}`,
+    limit: "20",
+  }
+  const urlParams = new URLSearchParams(params).toString()
   const headers = {
     method: "GET",
   }
-  return fetch(baseURL, headers).then((res) => res.json())
+  return fetch(baseURL + urlParams, headers).then((res) => res.json())
 }
