@@ -1,13 +1,18 @@
 import Button from "components/Button"
-import { useState } from "react"
+import { SearchContext } from "components/SearchProvider"
+import { useContext } from "react"
 import styles from "./styles.module.css"
 
 export default function Pagination() {
-  const [page, setPage] = useState<number>(1)
+  const { state, dispatch } = useContext(SearchContext)
 
-  const handleClickPrevious = () => {}
+  const handleClickPrevious = () => {
+    dispatch({ type: "PAGE_DOWN" })
+  }
 
-  const handleClickNext = () => {}
+  const handleClickNext = () => {
+    dispatch({ type: "PAGE_UP" })
+  }
 
   return (
     <footer className={styles.footer}>
@@ -15,10 +20,11 @@ export default function Pagination() {
         type="button"
         className={`${styles.button1}`}
         onClick={handleClickPrevious}
+        disabled={state.page === 1}
       >
         {"<"}
       </Button>
-      <span className={styles.page}>{page}</span>
+      <span className={styles.page}>{state.page}</span>
       <Button
         type="button"
         className={`${styles.button2}`}

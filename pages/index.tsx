@@ -1,17 +1,20 @@
 import Pagination from "components/Pagination"
+import { SearchContext } from "components/SearchProvider"
 import SearchResult from "components/SearchResult"
 import { NextPage } from "next"
 import Head from "next/head"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { getPokemonList } from "services/pokemon"
 import { ApiResponseType } from "types"
 import styles from "./styles.module.css"
 
 const Home: NextPage = () => {
   const [list, setList] = useState<ApiResponseType>()
+  const { state } = useContext(SearchContext)
+
   useEffect(() => {
-    getPokemonList<ApiResponseType>().then(setList)
-  }, [])
+    getPokemonList<ApiResponseType>(state).then(setList)
+  }, [state])
   return (
     <>
       <Head>
@@ -25,7 +28,9 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         <ul className={styles.list}>
           {list ? (
-            list?.results?.map((poke) => <SearchResult data={poke} />)
+            list?.results?.map((poke) => (
+              <SearchResult data={poke} key={poke.name} />
+            ))
           ) : (
             <h2>getting data...</h2>
           )}
