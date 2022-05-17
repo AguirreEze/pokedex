@@ -1,0 +1,13 @@
+.item {
+  width: 80%;
+  padding: 0.5rem;
+  border: 1px solid var(--text);
+  border-radius: 5px;
+  font-size: x-large;
+  text-transform: capitalize;
+  text-align: center;
+  transition: transform 0.1s ease-in-out;
+}
+.item:active {
+  transform: translateY(5px);
+}

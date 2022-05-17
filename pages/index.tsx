@@ -1,4 +1,5 @@
 import Pagination from "components/Pagination"
+import SearchResult from "components/SearchResult"
 import { NextPage } from "next"
 import Head from "next/head"
 import { useEffect, useState } from "react"
@@ -22,11 +23,13 @@ const Home: NextPage = () => {
         <h1>Pokedex</h1>
       </header>
       <main className={styles.main}>
-        {list ? (
-          list?.results?.map((poke) => <h1>{poke.name}</h1>)
-        ) : (
-          <h2>getting data...</h2>
-        )}
+        <ul className={styles.list}>
+          {list ? (
+            list?.results?.map((poke) => <SearchResult data={poke} />)
+          ) : (
+            <h2>getting data...</h2>
+          )}
+        </ul>
       </main>
       <Pagination />
     </>
