@@ -15,7 +15,7 @@ export interface PokemonData {
   id: number
   height: number
   weight: number
-  ablilities: {
+  abilities: {
     ability: {
       name: string
       url: string
