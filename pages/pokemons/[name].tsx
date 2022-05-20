@@ -44,8 +44,8 @@ export default function PokemonPage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>{data.name}</h1>
-        <ShinyButton onClick={handleShiny} />
+        <h1 className={styles.pokemon_name}>{data.name}</h1>
+        <ShinyButton onClick={handleShiny} className={styles.shiny_button} />
         {shiny ? (
           <section className={styles.sprite_display}>
             <Image src={data.sprites.front_shiny} height={150} width={150} />
@@ -57,34 +57,60 @@ export default function PokemonPage() {
             <Image src={data.sprites.back_default} height={150} width={150} />
           </section>
         )}
-        <p>base experience: {data.base_experience}</p>
-        <p>height: {data.height}</p>
-        <p>weight: {data.weight}</p>
-        <p>types:</p>
-        {data.types.map((info) => (
-          <p key={info.type.name}>{info.type.name}</p>
-        ))}
-        <p>abilities:</p>
-        {data.abilities.map((info) => (
-          <p key={info.ability.name}>
-            {info.ability.name}
-            {info.is_hidden && "(h)"}
-          </p>
-        ))}
-        <p>stats:</p>
-        {data.stats.map((info) => (
-          <p key={info.stat.name}>
-            {info.stat.name}: {info.base_stat}
-          </p>
-        ))}
-        <p>held items:</p>
-        {data.held_items.length ? (
-          data.held_items.map((info) => (
-            <p key={info.item.name}>{info.item.name}</p>
-          ))
-        ) : (
-          <p>none</p>
-        )}
+        <section className={styles.data_display}>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>base experience:</span>
+            <span className={styles.info_data}>{data.base_experience}</span>
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>height:</span>
+            <span className={styles.info_data}>{data.height}</span>
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>weight:</span>
+            <span className={styles.info_data}>{data.weight}</span>
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>types:</span>
+            {data.types.map((info) => (
+              <span key={info.type.name} className={styles.info_data}>
+                {info.type.name}
+              </span>
+            ))}
+          </div>
+          <div className={styles.info_list}>
+            <span className={styles.info_title}>abilities:</span>
+            {data.abilities.map((info) => (
+              <span key={info.ability.name} className={styles.info_data}>
+                {info.ability.name}
+                {info.is_hidden && "(h)"}
+              </span>
+            ))}
+          </div>
+          <div className={styles.info_list}>
+            <span className={styles.info_title}>stats:</span>
+            {data.stats.map((info) => (
+              <div className={styles.info_field}>
+                <span key={info.stat.name} className={styles.stats_name}>
+                  {info.stat.name}:
+                </span>
+                <span className={styles.stats_value}>{info.base_stat}</span>
+              </div>
+            ))}
+          </div>
+          <div className={styles.info_list}>
+            <span className={styles.info_title}>held items:</span>
+            {data.held_items.length ? (
+              data.held_items.map((info) => (
+                <span key={info.item.name} className={styles.info_data}>
+                  {info.item.name}
+                </span>
+              ))
+            ) : (
+              <span className={styles.info_data}>none</span>
+            )}
+          </div>
+        </section>
       </main>
     </>
   )

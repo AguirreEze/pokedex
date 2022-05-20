@@ -3,9 +3,10 @@ import styles from "./styles.module.css"
 
 interface Iprops {
   onClick: () => void
+  className: string
 }
 
-export default function ShinyButton({ onClick }: Iprops) {
+export default function ShinyButton({ onClick, className }: Iprops) {
   const [active, setActive] = useState(false)
 
   function handleClick() {
@@ -14,7 +15,11 @@ export default function ShinyButton({ onClick }: Iprops) {
   }
 
   return (
-    <button type="button" onClick={handleClick} className={styles.button}>
+    <button
+      type="button"
+      onClick={handleClick}
+      className={`${styles.button} ${className}`}
+    >
       <svg height={21} width={21} xmlns="http://www.w3.org/2000/svg">
         <path
           d="m10.5 14.5-5 3 2-5.131-4-3.869h5l2-5 2 5h5l-4 4 2 5z"
