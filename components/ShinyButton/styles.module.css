@@ -1,0 +1,10 @@
+.button {
+  display: grid;
+  place-content: center;
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}

@@ -8,8 +8,10 @@ interface Iprops {
 
 export default function SearchResult({ data }: Iprops) {
   return (
-    <Link href={`/pokemon/${data.name}`}>
-      <li className={styles.item}>{data.name}</li>
+    <Link href={`/pokemons/${data.name}`}>
+      <li className={styles.item}>
+        <a>{data.name}</a>
+      </li>
     </Link>
   )
 }
