@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { PokemonSearchType } from "types"
+import { PokemonResultType } from "types"
 import styles from "./styles.module.css"
 
 interface Iprops {
-  data: PokemonSearchType
+  data: PokemonResultType
 }
 
 export default function SearchResult({ data }: Iprops) {
