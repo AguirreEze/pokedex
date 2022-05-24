@@ -90,10 +90,8 @@ export default function PokemonPage() {
           <div className={styles.info_list}>
             <span className={styles.info_title}>stats:</span>
             {data.stats.map((info) => (
-              <div className={styles.info_field}>
-                <span key={info.stat.name} className={styles.stats_name}>
-                  {info.stat.name}:
-                </span>
+              <div className={styles.info_field} key={info.stat.name}>
+                <span className={styles.stats_name}>{info.stat.name}:</span>
                 <span className={styles.stats_value}>{info.base_stat}</span>
               </div>
             ))}
