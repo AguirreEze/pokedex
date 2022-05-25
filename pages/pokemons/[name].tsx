@@ -48,19 +48,19 @@ export default function PokemonPage() {
         <ShinyButton onClick={handleShiny} className={styles.shiny_button} />
         {shiny ? (
           <section className={styles.sprite_display}>
-            <Image src={data.sprites.front_shiny} height={150} width={150} />
-            <Image src={data.sprites.back_shiny} height={150} width={150} />
+            <Image src={data.sprites.frontShiny} height={150} width={150} />
+            <Image src={data.sprites.backShiny} height={150} width={150} />
           </section>
         ) : (
           <section className={styles.sprite_display}>
-            <Image src={data.sprites.front_default} height={150} width={150} />
-            <Image src={data.sprites.back_default} height={150} width={150} />
+            <Image src={data.sprites.frontDefault} height={150} width={150} />
+            <Image src={data.sprites.backDefault} height={150} width={150} />
           </section>
         )}
         <section className={styles.data_display}>
           <div className={styles.info_field}>
             <span className={styles.info_title}>base experience:</span>
-            <span className={styles.info_data}>{data.base_experience}</span>
+            <span className={styles.info_data}>{data.baseExperience}</span>
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>height:</span>
@@ -73,35 +73,35 @@ export default function PokemonPage() {
           <div className={styles.info_field}>
             <span className={styles.info_title}>types:</span>
             {data.types.map((info) => (
-              <span key={info.type.name} className={styles.info_data}>
-                {info.type.name}
+              <span key={info.name} className={styles.info_data}>
+                {info.name}
               </span>
             ))}
           </div>
           <div className={styles.info_list}>
             <span className={styles.info_title}>abilities:</span>
             {data.abilities.map((info) => (
-              <span key={info.ability.name} className={styles.info_data}>
-                {info.ability.name}
-                {info.is_hidden && "(h)"}
+              <span key={info.name} className={styles.info_data}>
+                {info.name}
+                {info.isHidden && "(h)"}
               </span>
             ))}
           </div>
           <div className={styles.info_list}>
             <span className={styles.info_title}>stats:</span>
             {data.stats.map((info) => (
-              <div className={styles.info_field} key={info.stat.name}>
-                <span className={styles.stats_name}>{info.stat.name}:</span>
-                <span className={styles.stats_value}>{info.base_stat}</span>
+              <div className={styles.info_field} key={info.name}>
+                <span className={styles.stats_name}>{info.name}:</span>
+                <span className={styles.stats_value}>{info.baseStats}</span>
               </div>
             ))}
           </div>
           <div className={styles.info_list}>
             <span className={styles.info_title}>held items:</span>
-            {data.held_items.length ? (
-              data.held_items.map((info) => (
-                <span key={info.item.name} className={styles.info_data}>
-                  {info.item.name}
+            {data.heldItems.length ? (
+              data.heldItems.map((info) => (
+                <span key={info.name} className={styles.info_data}>
+                  {info.name}
                 </span>
               ))
             ) : (
