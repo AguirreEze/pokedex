@@ -23,7 +23,7 @@ export interface PokemonData {
     backDefault: string
     frontDefault: string
     backShiny: string
-    frontShint: string
+    frontShiny: string
   }
   abilities: {
     name: string
@@ -60,7 +60,7 @@ export interface PokemonDataRaw {
   held_items: PokemonHeldItemsRaw[]
   base_experience: number
   stats: PokemonStatsRaw[]
-  types: PokemonTypesRaw[]
+  types: PokemonTypeRaw[]
   sprites: PokemonSpritesRaw
   moves: {
     move: {
@@ -84,7 +84,7 @@ export interface PokemonAbilitiesRaw {
   slot: number
 }
 
-export interface PokemonTypesRaw {
+export interface PokemonTypeRaw {
   slot: number
   type: {
     name: string
