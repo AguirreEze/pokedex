@@ -30,7 +30,7 @@ export default async function handler(
       res.json()
     )
 
-    res.status(200).json(data)
+    return res.status(200).json(data)
   }
   return res.status(400).json({ error: "Wrong search info" })
 }
