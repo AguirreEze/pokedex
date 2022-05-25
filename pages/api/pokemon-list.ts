@@ -1,9 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { SearchType } from "types"
+import { ApiResponseType, SearchType } from "types"
 
-type Data = {
-  name: string
-}
 type Error = {
   error: string
 }
@@ -13,7 +10,7 @@ const baseURL = "https://pokeapi.co/api/v2/pokemon"
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data | Error>
+  res: NextApiResponse<ApiResponseType | Error>
 ) {
   if (req.method === "PUT") {
     const searchInfo: SearchType = req.body.data
