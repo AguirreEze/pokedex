@@ -27,6 +27,7 @@ export interface PokemonData {
   }
   abilities: {
     name: string
+    description: string
     isHidden: boolean
     slot: number
   }[]

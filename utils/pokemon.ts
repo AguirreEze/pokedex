@@ -1,5 +1,6 @@
 import {
   PokemonAbilitiesRaw,
+  PokemonData,
   PokemonDataRaw,
   PokemonHeldItemsRaw,
   PokemonSpritesRaw,
@@ -7,14 +8,14 @@ import {
   PokemonTypeRaw,
 } from "types"
 
-export const formData = async (data: PokemonDataRaw) => {
+export const formData = async (data: PokemonDataRaw): Promise<PokemonData> => {
   return {
     name: data.name,
     height: data.height,
     weight: data.weight,
     baseExperience: data.base_experience,
     sprites: filterSprites(data.sprites),
-    abilities: filterAbilities(data.abilities),
+    abilities: await filterAbilities(data.abilities),
     stats: filterStats(data.stats),
     types: await filterTypes(data.types),
     heldItems: await filterHeldItems(data.held_items),
@@ -22,13 +23,21 @@ export const formData = async (data: PokemonDataRaw) => {
 }
 
 const filterAbilities = (ablilities: PokemonAbilitiesRaw[]) => {
-  return ablilities.map((ability) => {
-    return {
-      name: ability.ability.name,
-      isHidden: ability.is_hidden,
-      slot: ability.slot,
-    }
+  const arrOfPromises = ablilities.map((ability) => {
+    return fetch(ability.ability.url)
+      .then((res) => res.json())
+      .then((res) => {
+        return {
+          name: ability.ability.name,
+          description: res.effect_entries.find(
+            (elem: any) => elem.language.name === "en"
+          ).short_effect,
+          isHidden: ability.is_hidden,
+          slot: ability.slot,
+        }
+      })
   })
+  return Promise.all(arrOfPromises)
 }
 
 const getName = (object: any) => {
@@ -42,7 +51,7 @@ const filterTypes = (types: PokemonTypeRaw[]) => {
       .then((typeData) => {
         return {
           name: type.type.name,
-          stot: type.slot,
+          slot: type.slot,
           doubleDamageFrom:
             typeData.damage_relations.double_damage_from.map(getName),
           doubleDamageTo:
@@ -76,7 +85,9 @@ const filterHeldItems = (heldItems: PokemonHeldItemsRaw[]) => {
       .then((itemData) => {
         return {
           name: item.item.name,
-          effect: itemData.effect_entries[0].short_effect,
+          effect: itemData.effect_entries.find(
+            (elem: any) => elem.language.name === "en"
+          ).short_effect,
         }
       })
   })
