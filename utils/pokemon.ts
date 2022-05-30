@@ -64,7 +64,7 @@ const filterTypes = (types: PokemonTypeRaw[]) => {
         }
       })
   })
-  return Promise.all(arrOfPromises)
+  return Promise.all(arrOfPromises).then(calculateTypeIntersaction)
 }
 
 const filterStats = (stats: PokemonStatsRaw[]) => {
@@ -101,4 +101,92 @@ const filterSprites = (sprites: PokemonSpritesRaw) => {
     backShiny: sprites.back_shiny,
     frontShiny: sprites.front_shiny,
   }
+}
+
+interface DataType {
+  name: string
+  slot: number
+  doubleDamageFrom: string[]
+  doubleDamageTo: string[]
+  halfDamageFrom: string[]
+  halfDamageTo: string[]
+  noDamageFrom: string[]
+  noDamageTo: string[]
+}
+
+const calculateTypeIntersaction = (data: DataType[]) => {
+  if (data.length === 1) {
+    return {
+      names: [
+        {
+          name: data[0].name,
+          slot: data[0].slot,
+        },
+      ],
+      weakTo: data[0].doubleDamageFrom,
+      stronglyWeakTo: [],
+      resistantTo: data[0].halfDamageFrom,
+      stronglyResistantTo: [],
+      inmuneTo: data[0].noDamageFrom,
+    }
+  }
+  const { weakTo, stronglyWeakTo } = getWeakness(data)
+  const { resistantTo, stronglyResistantTo } = getStrengths(data)
+
+  return {
+    names: getNameAndSlot(data),
+    weakTo,
+    stronglyWeakTo,
+    resistantTo,
+    stronglyResistantTo,
+    inmuneTo: getInmunities(data),
+  }
+}
+
+const getNameAndSlot = (data: { name: string; slot: number }[]) => {
+  return data.map((type) => {
+    return {
+      name: type.name,
+      slot: type.slot,
+    }
+  })
+}
+
+const getInmunities = (data: DataType[]) => {
+  return data
+    .map((type) => type.noDamageFrom)
+    .flat()
+    .reduce((acc: string[], curr) => {
+      if (!acc.includes(curr)) return [...acc, curr]
+      return acc
+    }, [])
+}
+
+const getWeakness = (data: DataType[]) => {
+  const inmunity = data.map((type) => type.noDamageFrom).flat()
+  const weakness = data
+    .map((type) => type.doubleDamageFrom)
+    .flat()
+    .filter((type) => !inmunity.includes(type))
+
+  const stronglyWeakTo = weakness.filter(
+    (item, index) => weakness.indexOf(item) !== index
+  )
+  const weakTo = weakness.filter((type) => !stronglyWeakTo.includes(type))
+
+  return {
+    weakTo,
+    stronglyWeakTo,
+  }
+}
+
+const getStrengths = (data: DataType[]) => {
+  const strengths = data.map((type) => type.halfDamageFrom).flat()
+  const stronglyResistantTo = strengths.filter(
+    (item, index) => strengths.indexOf(item) !== index
+  )
+  const resistantTo = strengths.filter(
+    (type) => !stronglyResistantTo.includes(type)
+  )
+  return { resistantTo, stronglyResistantTo }
 }

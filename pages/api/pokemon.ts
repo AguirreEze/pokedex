@@ -23,7 +23,7 @@ export default async function handler(
     ).then((res) => res.json())
 
     const dataToSend = await formData(data)
-
+    console.log(dataToSend)
     return res.status(200).json(dataToSend)
   }
   return res.status(400).json({ error: "Wrong search info" })

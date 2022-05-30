@@ -37,15 +37,16 @@ export interface PokemonData {
     baseStats: number
   }[]
   types: {
-    name: string
-    slot: number
-    doubleDamageFrom: string[]
-    doubleDamageTo: string[]
-    halfDamageFrom: string[]
-    halfDamageTo: string[]
-    noDamageFrom: string[]
-    noDamageTo: string[]
-  }[]
+    names: {
+      name: string
+      slot: number
+    }[]
+    weakTo: string[]
+    stronglyWeakTo: string[]
+    resistantTo: string[]
+    stronglyResistantTo: string[]
+    inmuneTo: string[]
+  }
   heldItems: {
     name: string
     effect: string
