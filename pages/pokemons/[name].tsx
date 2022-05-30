@@ -72,11 +72,51 @@ export default function PokemonPage() {
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>types:</span>
-            {data.types.map((info) => (
+            {data.types.names.map((info) => (
               <span key={info.name} className={styles.info_data}>
                 {info.name}
               </span>
             ))}
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>weakness:</span>
+            {data.types.weakTo.map((info) => (
+              <span key={info} className={styles.info_data}>
+                {info}
+              </span>
+            ))}
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>strong weakness:</span>
+            {data.types.stronglyWeakTo.length === 0 ? (
+              <span className={styles.info_data}>none</span>
+            ) : (
+              data.types.stronglyWeakTo.map((info) => (
+                <span key={info} className={styles.info_data}>
+                  {info}
+                </span>
+              ))
+            )}
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>resistances:</span>
+            {data.types.resistantTo.map((info) => (
+              <span key={info} className={styles.info_data}>
+                {info}
+              </span>
+            ))}
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>strong resistances:</span>
+            {data.types.stronglyResistantTo.length === 0 ? (
+              <span className={styles.info_data}>none</span>
+            ) : (
+              data.types.stronglyResistantTo.map((info) => (
+                <span key={info} className={styles.info_data}>
+                  {info}
+                </span>
+              ))
+            )}
           </div>
           <div className={styles.info_list}>
             <span className={styles.info_title}>abilities:</span>
