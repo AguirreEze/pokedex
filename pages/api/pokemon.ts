@@ -14,16 +14,21 @@ export default async function handler(
   if (req.method === "PUT") {
     const pokemon = req.body.data
     if (!pokemon) return res.status(400).json({ error: "Wrong search info" })
-    const headers = {
-      method: "GET",
-    }
-    const data: PokemonDataRaw = await fetch(
-      `${baseURL}${pokemon}`,
-      headers
-    ).then((res) => res.json())
 
-    const dataToSend = await formData(data)
-    return res.status(200).json(dataToSend)
+    try {
+      const headers = {
+        method: "GET",
+      }
+      const data: PokemonDataRaw = await fetch(
+        `${baseURL}${pokemon}`,
+        headers
+      ).then((res) => res.json())
+
+      const dataToSend = await formData(data)
+      return res.status(200).json(dataToSend)
+    } catch (error) {
+      return res.status(400).json({ error: "Wrong Data" })
+    }
   }
   return res.status(400).json({ error: "Wrong search info" })
 }

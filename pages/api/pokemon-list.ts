@@ -23,11 +23,14 @@ export default async function handler(
     const headers = {
       method: "GET",
     }
-    const data = await fetch(baseURL + "?" + urlParams, headers).then((res) =>
-      res.json()
-    )
-
-    return res.status(200).json(data)
+    try {
+      const data = await fetch(baseURL + "?" + urlParams, headers).then((res) =>
+        res.json()
+      )
+      return res.status(200).json(data)
+    } catch {
+      return res.status(400).json({ error: "Wrong Data" })
+    }
   }
   return res.status(400).json({ error: "Wrong search info" })
 }
