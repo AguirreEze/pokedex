@@ -84,11 +84,15 @@ export default function PokemonPage() {
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>weakness:</span>
-            {data.types.weakTo.map((info) => (
-              <span key={info} className={styles.info_data}>
-                {info}
-              </span>
-            ))}
+            {data.types.resistantTo.length === 0 ? (
+              <span className={styles.info_data}>none</span>
+            ) : (
+              data.types.weakTo.map((info) => (
+                <span key={info} className={styles.info_data}>
+                  {info}
+                </span>
+              ))
+            )}
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>strong weakness:</span>
@@ -104,11 +108,15 @@ export default function PokemonPage() {
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>resistances:</span>
-            {data.types.resistantTo.map((info) => (
-              <span key={info} className={styles.info_data}>
-                {info}
-              </span>
-            ))}
+            {data.types.resistantTo.length === 0 ? (
+              <span className={styles.info_data}>none</span>
+            ) : (
+              data.types.resistantTo.map((info) => (
+                <span key={info} className={styles.info_data}>
+                  {info}
+                </span>
+              ))
+            )}
           </div>
           <div className={styles.info_field}>
             <span className={styles.info_title}>strong resistances:</span>
@@ -116,6 +124,18 @@ export default function PokemonPage() {
               <span className={styles.info_data}>none</span>
             ) : (
               data.types.stronglyResistantTo.map((info) => (
+                <span key={info} className={styles.info_data}>
+                  {info}
+                </span>
+              ))
+            )}
+          </div>
+          <div className={styles.info_field}>
+            <span className={styles.info_title}>inmunities:</span>
+            {data.types.inmuneTo.length === 0 ? (
+              <span className={styles.info_data}>none</span>
+            ) : (
+              data.types.inmuneTo.map((info) => (
                 <span key={info} className={styles.info_data}>
                   {info}
                 </span>
