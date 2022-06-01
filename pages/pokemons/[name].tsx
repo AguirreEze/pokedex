@@ -21,14 +21,18 @@ export default function PokemonPage() {
   useEffect(() => {
     if (!router.isReady) return
     const { name } = router.query
-    getPokemon<PokemonData>(name as string)
-      .then((res) => {
-        if (isNumber.test(name as string)) {
-          router.replace(`/pokemons/${res.name}`)
-        }
-        setData(res)
-      })
-      .catch((err) => router.replace("/"))
+    if (typeof name === "string") {
+      getPokemon<PokemonData>(name.toLowerCase())
+        .then((res) => {
+          if (isNumber.test(name)) {
+            router.replace(`/pokemons/${res.name}`)
+          }
+          setData(res)
+        })
+        .catch((err) => router.replace("/"))
+    } else {
+      router.replace("/")
+    }
   }, [router.isReady])
 
   const handleShiny = () => {
