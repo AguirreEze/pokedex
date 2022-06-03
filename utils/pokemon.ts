@@ -130,16 +130,24 @@ const calculateTypeIntersaction = (data: DataType[]) => {
       inmuneTo: data[0].noDamageFrom,
     }
   }
-  const { weakTo, stronglyWeakTo } = getWeakness(data)
-  const { resistantTo, stronglyResistantTo } = getStrengths(data)
+
+  const inmuneTo = getInmunities(data)
+  const weakness = data.map((type) => type.doubleDamageFrom).flat()
+  const strengths = data.map((type) => type.halfDamageFrom).flat()
+
+  const [weakTo, stronglyWeakTo] = intersectArrays(weakness, inmuneTo)
+  const [resistantTo, stronglyResistantTo] = intersectArrays(
+    strengths,
+    inmuneTo
+  )
 
   return {
     names: getNameAndSlot(data),
-    weakTo,
+    weakTo: removeRepeats(weakTo, resistantTo),
     stronglyWeakTo,
-    resistantTo,
+    resistantTo: removeRepeats(resistantTo, weakTo),
     stronglyResistantTo,
-    inmuneTo: getInmunities(data),
+    inmuneTo,
   }
 }
 
@@ -162,31 +170,17 @@ const getInmunities = (data: DataType[]) => {
     }, [])
 }
 
-const getWeakness = (data: DataType[]) => {
-  const inmunity = data.map((type) => type.noDamageFrom).flat()
-  const weakness = data
-    .map((type) => type.doubleDamageFrom)
-    .flat()
-    .filter((type) => !inmunity.includes(type))
+const intersectArrays = (data: string[], inmuneTo: string[]) => {
+  const weakness = data.filter((type) => !inmuneTo.includes(type))
 
-  const stronglyWeakTo = weakness.filter(
+  const tierUp = weakness.filter(
     (item, index) => weakness.indexOf(item) !== index
   )
-  const weakTo = weakness.filter((type) => !stronglyWeakTo.includes(type))
+  const sameTier = weakness.filter((type) => !tierUp.includes(type))
 
-  return {
-    weakTo,
-    stronglyWeakTo,
-  }
+  return [sameTier, tierUp]
 }
 
-const getStrengths = (data: DataType[]) => {
-  const strengths = data.map((type) => type.halfDamageFrom).flat()
-  const stronglyResistantTo = strengths.filter(
-    (item, index) => strengths.indexOf(item) !== index
-  )
-  const resistantTo = strengths.filter(
-    (type) => !stronglyResistantTo.includes(type)
-  )
-  return { resistantTo, stronglyResistantTo }
+const removeRepeats = (arr1: string[], arr2: string[]) => {
+  return arr1.filter((elem) => !arr2.includes(elem))
 }
