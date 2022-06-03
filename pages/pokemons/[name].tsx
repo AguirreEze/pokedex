@@ -1,5 +1,7 @@
 import ComboDescription from "components/ComboDescription"
 import ShinyButton from "components/ShinyButton"
+import StatDisplay from "components/StatDisplay"
+import Title from "components/Title"
 import Head from "next/head"
 import Image from "next/image"
 import { useRouter } from "next/router"
@@ -63,6 +65,7 @@ export default function PokemonPage() {
           </section>
         )}
         <section className={styles.data_display}>
+          <Title text="general" />
           <div className={styles.info_field}>
             <span className={styles.info_title}>base experience:</span>
             <span className={styles.info_data}>{data.baseExperience}</span>
@@ -75,6 +78,7 @@ export default function PokemonPage() {
             <span className={styles.info_title}>weight:</span>
             <span className={styles.info_data}>{data.weight}</span>
           </div>
+          <Title text="types" />
           <div className={styles.info_field}>
             <span className={styles.info_title}>types:</span>
             {data.types.names.map((info) => (
@@ -124,7 +128,7 @@ export default function PokemonPage() {
             )}
           </div>
           <div className={styles.info_list}>
-            <span className={styles.info_title}>abilities:</span>
+            <Title text="abilities" />
             {data.abilities.map((info) => (
               <ComboDescription
                 key={info.name}
@@ -134,16 +138,17 @@ export default function PokemonPage() {
             ))}
           </div>
           <div className={styles.info_list}>
-            <span className={styles.info_title}>stats:</span>
+            <Title text="stats" />
             {data.stats.map((info) => (
-              <div className={styles.info_field} key={info.name}>
-                <span className={styles.stats_name}>{info.name}:</span>
-                <span className={styles.stats_value}>{info.baseStats}</span>
-              </div>
+              <StatDisplay
+                key={info.name}
+                name={info.name}
+                baseStats={info.baseStats}
+              />
             ))}
           </div>
           <div className={styles.info_list}>
-            <span className={styles.info_title}>held items:</span>
+            <Title text="held items" />
             {data.heldItems.length ? (
               data.heldItems.map((info) => (
                 <ComboDescription

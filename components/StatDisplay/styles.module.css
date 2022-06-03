@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  grid-template-columns: 2.5rem auto;
+  grid-template-areas: "name name" "value bar";
+  gap: 0.5rem 0;
+}
+
+.name {
+  grid-area: name;
+  text-transform: capitalize;
+}
+.value {
+  grid-area: value;
+  font-weight: 600;
+  width: 2.5rem;
+  text-align: center;
+}
+
+.bar {
+  grid-area: bar;
+  place-self: center;
+  height: 70%;
+  width: 100%;
+  border-radius: 2rem;
+  border: 1px solid var(--text);
+}
