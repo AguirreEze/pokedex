@@ -1,3 +1,4 @@
+import Abilities from "components/Abilities"
 import ShinyButton from "components/ShinyButton"
 import Head from "next/head"
 import Image from "next/image"
@@ -125,10 +126,7 @@ export default function PokemonPage() {
           <div className={styles.info_list}>
             <span className={styles.info_title}>abilities:</span>
             {data.abilities.map((info) => (
-              <span key={info.name} className={styles.info_data}>
-                {info.name}
-                {info.isHidden && "(h)"}
-              </span>
+              <Abilities key={info.name} info={info} />
             ))}
           </div>
           <div className={styles.info_list}>
