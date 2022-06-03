@@ -51,3 +51,7 @@
 .stats_value {
   font-weight: 600;
 }
+
+.title_container {
+  border-bottom: 1px solid var(--text);
+}
