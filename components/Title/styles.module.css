@@ -1,0 +1,14 @@
+.title {
+  margin: 0;
+  font-weight: 300;
+  font-size: inherit;
+  padding-bottom: 0.2rem;
+  text-transform: capitalize;
+  border-bottom: 4px solid var(--text);
+}
+
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+  border-bottom: 2px solid var(--text);
+}
