@@ -1,4 +1,4 @@
-import Abilities from "components/Abilities"
+import ComboDescription from "components/ComboDescription"
 import ShinyButton from "components/ShinyButton"
 import Head from "next/head"
 import Image from "next/image"
@@ -126,7 +126,11 @@ export default function PokemonPage() {
           <div className={styles.info_list}>
             <span className={styles.info_title}>abilities:</span>
             {data.abilities.map((info) => (
-              <Abilities key={info.name} info={info} />
+              <ComboDescription
+                key={info.name}
+                name={info.isHidden ? `${info.name}(h)` : info.name}
+                description={info.description}
+              />
             ))}
           </div>
           <div className={styles.info_list}>
@@ -142,9 +146,11 @@ export default function PokemonPage() {
             <span className={styles.info_title}>held items:</span>
             {data.heldItems.length ? (
               data.heldItems.map((info) => (
-                <span key={info.name} className={styles.info_data}>
-                  {info.name}
-                </span>
+                <ComboDescription
+                  key={info.name}
+                  name={info.name}
+                  description={info.effect}
+                />
               ))
             ) : (
               <span className={styles.info_data}>none</span>

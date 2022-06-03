@@ -1,23 +1,22 @@
 import { useState } from "react"
-import { PokemonData } from "types"
 import styles from "./styles.module.css"
 
 interface Iprops {
-  info: PokemonData["abilities"][0]
+  name: string
+  description: string
 }
 
-export default function Abilities({ info }: Iprops) {
+export default function ComboDescription({ name, description }: Iprops) {
   const [show, setShow] = useState(false)
   return (
     <section className={styles.container}>
       <button onClick={() => setShow(!show)} className={styles.button}>
-        <span>{info.name}</span>
-        {info.isHidden && <span>(h)</span>}
+        <span>{name}</span>
         <div className={show ? styles.arrow_down : styles.arrow_up}>
           <span>{">"}</span>
         </div>
       </button>
-      {show && <span className={styles.description}>{info.description}</span>}
+      {show && <span className={styles.description}>{description}</span>}
     </section>
   )
 }

@@ -46,7 +46,7 @@
   border: 1px solid var(--text);
   border-top: none;
   padding: 1rem 0.5rem;
-  animation: show 0.3s ease-in-out forwards;
+  animation: show 0.3s ease-out forwards;
   transform-origin: top;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
