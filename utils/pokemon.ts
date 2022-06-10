@@ -1,17 +1,65 @@
+import { version } from "os"
 import { PokemonData, PokemonDataRaw } from "types"
 
 export const formData = async (data: PokemonDataRaw): Promise<PokemonData> => {
   return {
-    name: data.name,
-    height: data.height,
-    weight: data.weight,
-    baseExperience: data.base_experience,
+    general: {
+      name: data.name,
+      height: data.height,
+      weight: data.weight,
+      baseExperience: data.base_experience,
+      baseHappiness: data.base_happiness,
+      captureRate: data.capture_rate,
+      generation: data.generation.name,
+      isBaby: data.is_baby,
+      isLegendary: data.is_legendary,
+      isMythical: data.is_mythical,
+      hasGenderDifferences: data.has_gender_differences,
+      dexEntries: filterFlavorText(data.flavor_text_entries),
+      pokedexIndex: filterPokedexEntries(data.pokedex_numbers),
+      varieties: filterVarieties(data.varieties),
+    },
+    breeding: {
+      eggGroups: data.egg_groups.map((group) => group.name),
+      genderRate: data.gender_rate,
+      hatchCounter: data.hatch_counter,
+    },
     sprites: filterSprites(data.sprites),
     abilities: await filterAbilities(data.abilities),
     stats: filterStats(data.stats),
     types: await filterTypes(data.types),
     heldItems: await filterHeldItems(data.held_items),
   }
+}
+
+const filterFlavorText = (entries: PokemonDataRaw["flavor_text_entries"]) => {
+  return entries.map((entry) => {
+    return {
+      entry: entry.flavor_text,
+      version: entry.version.name,
+    }
+  })
+}
+
+const filterPokedexEntries = (entries: PokemonDataRaw["pokedex_numbers"]) => {
+  return entries.map((entry) => {
+    return {
+      index: entry.entry_number,
+      pokedex: entry.pokedex.name,
+    }
+  })
+}
+
+const filterVarieties = (varieties: PokemonDataRaw["varieties"]) => {
+  const regEx = new RegExp("/[0-1]+/")
+  return varieties.map((element) => {
+    const id = regEx.exec(element.pokemon.url)![0].replaceAll("/", "")
+    return {
+      isDefault: element.is_default,
+      name: element.pokemon.name,
+      id,
+    }
+  })
 }
 
 const filterAbilities = (ablilities: PokemonDataRaw["abilities"]) => {
