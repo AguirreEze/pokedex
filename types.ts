@@ -34,11 +34,11 @@ export interface PokemonData {
     pokedexIndex: {
       index: number
       pokedex: string
-    }
+    }[]
     varieties: {
       isDefault: boolean
       name: string
-      url: string
+      id: string
     }[]
   }
   breeding: {
@@ -115,7 +115,7 @@ export interface PokemonDataRaw {
     pokedex: {
       name: string
     }
-  }
+  }[]
   varieties: {
     is_default: boolean
     pokemon: {
