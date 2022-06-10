@@ -15,10 +15,37 @@ export interface SearchType {
 }
 
 export interface PokemonData {
-  name: string
-  height: number
-  weight: number
-  baseExperience: number
+  general: {
+    name: string
+    height: number
+    weight: number
+    baseExperience: number
+    isBaby: boolean
+    isLegendary: boolean
+    isMythical: boolean
+    hasGenderDifferences: boolean
+    baseHappiness: string
+    captureRate: number
+    generation: string
+    dexEntries: {
+      entry: string
+      version: string
+    }[]
+    pokedexIndex: {
+      index: number
+      pokedex: string
+    }
+    varieties: {
+      isDefault: boolean
+      name: string
+      url: string
+    }[]
+  }
+  breeding: {
+    genderRate: number
+    eggGroups: string[]
+    hatchCounter: number
+  }
   sprites: {
     backDefault: string
     frontDefault: string
@@ -58,6 +85,44 @@ export interface PokemonDataRaw {
   id: number
   height: number
   weight: number
+  is_baby: boolean
+  is_legendary: boolean
+  is_mythical: boolean
+  has_gender_differences: boolean
+  gender_rate: number
+  base_happiness: string
+  capture_rate: number
+  hatch_counter: number
+  egg_groups: {
+    name: string
+    url: string
+  }[]
+  evolvution_chain: {
+    url: string
+  }
+  generation: {
+    name: string
+    url: string
+  }
+  flavor_text_entries: {
+    flavor_text: string
+    version: {
+      name: string
+    }
+  }[]
+  pokedex_numbers: {
+    entry_number: number
+    pokedex: {
+      name: string
+    }
+  }
+  varieties: {
+    is_default: boolean
+    pokemon: {
+      name: string
+      url: string
+    }
+  }[]
   abilities: {
     ability: {
       name: string
