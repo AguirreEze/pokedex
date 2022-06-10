@@ -58,12 +58,47 @@ export interface PokemonDataRaw {
   id: number
   height: number
   weight: number
-  abilities: PokemonAbilitiesRaw[]
-  held_items: PokemonHeldItemsRaw[]
+  abilities: {
+    ability: {
+      name: string
+      url: string
+    }
+    is_hidden: boolean
+    slot: number
+  }[]
+  held_items: {
+    item: {
+      name: string
+      url: string
+    }
+    version_details: []
+  }[]
   base_experience: number
-  stats: PokemonStatsRaw[]
-  types: PokemonTypeRaw[]
-  sprites: PokemonSpritesRaw
+  stats: {
+    base_stat: number
+    effort: number
+    stat: {
+      name: string
+      url: string
+    }
+  }[]
+  types: {
+    slot: number
+    type: {
+      name: string
+      url: string
+    }
+  }[]
+  sprites: {
+    back_default: string
+    back_female: string
+    back_shiny: string
+    back_shiny_female: string
+    front_default: string
+    front_female: string
+    front_shiny: string
+    front_shiny_female: string
+  }
   moves: {
     move: {
       name: string
@@ -75,49 +110,4 @@ export interface PokemonDataRaw {
     name: string
     url: string
   }[]
-}
-
-export interface PokemonAbilitiesRaw {
-  ability: {
-    name: string
-    url: string
-  }
-  is_hidden: boolean
-  slot: number
-}
-
-export interface PokemonTypeRaw {
-  slot: number
-  type: {
-    name: string
-    url: string
-  }
-}
-
-export interface PokemonStatsRaw {
-  base_stat: number
-  effort: number
-  stat: {
-    name: string
-    url: string
-  }
-}
-
-export interface PokemonHeldItemsRaw {
-  item: {
-    name: string
-    url: string
-  }
-  version_details: []
-}
-
-export interface PokemonSpritesRaw {
-  back_default: string
-  back_female: string
-  back_shiny: string
-  back_shiny_female: string
-  front_default: string
-  front_female: string
-  front_shiny: string
-  front_shiny_female: string
 }

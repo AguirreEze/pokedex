@@ -1,12 +1,4 @@
-import {
-  PokemonAbilitiesRaw,
-  PokemonData,
-  PokemonDataRaw,
-  PokemonHeldItemsRaw,
-  PokemonSpritesRaw,
-  PokemonStatsRaw,
-  PokemonTypeRaw,
-} from "types"
+import { PokemonData, PokemonDataRaw } from "types"
 
 export const formData = async (data: PokemonDataRaw): Promise<PokemonData> => {
   return {
@@ -22,7 +14,7 @@ export const formData = async (data: PokemonDataRaw): Promise<PokemonData> => {
   }
 }
 
-const filterAbilities = (ablilities: PokemonAbilitiesRaw[]) => {
+const filterAbilities = (ablilities: PokemonDataRaw["abilities"]) => {
   const arrOfPromises = ablilities.map((ability) => {
     return fetch(ability.ability.url)
       .then((res) => res.json())
@@ -44,7 +36,7 @@ const getName = (object: any) => {
   return object.name
 }
 
-const filterTypes = (types: PokemonTypeRaw[]) => {
+const filterTypes = (types: PokemonDataRaw["types"]) => {
   const arrOfPromises = types.map((type) => {
     return fetch(type.type.url)
       .then((res) => res.json())
@@ -67,7 +59,7 @@ const filterTypes = (types: PokemonTypeRaw[]) => {
   return Promise.all(arrOfPromises).then(calculateTypeIntersaction)
 }
 
-const filterStats = (stats: PokemonStatsRaw[]) => {
+const filterStats = (stats: PokemonDataRaw["stats"]) => {
   return stats.map((stat) => {
     return {
       name: stat.stat.name,
@@ -77,7 +69,7 @@ const filterStats = (stats: PokemonStatsRaw[]) => {
   })
 }
 
-const filterHeldItems = (heldItems: PokemonHeldItemsRaw[]) => {
+const filterHeldItems = (heldItems: PokemonDataRaw["held_items"]) => {
   if (heldItems.length === 0) return []
   const arrOfPromises = heldItems.map(async (item) => {
     return fetch(item.item.url)
@@ -94,7 +86,7 @@ const filterHeldItems = (heldItems: PokemonHeldItemsRaw[]) => {
   return Promise.all(arrOfPromises)
 }
 
-const filterSprites = (sprites: PokemonSpritesRaw) => {
+const filterSprites = (sprites: PokemonDataRaw["sprites"]) => {
   return {
     backDefault: sprites.back_default,
     frontDefault: sprites.front_default,
