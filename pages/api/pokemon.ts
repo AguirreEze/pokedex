@@ -19,10 +19,14 @@ export default async function handler(
       const headers = {
         method: "GET",
       }
-      const data: PokemonDataRaw = await fetch(
-        `${baseURL}${pokemon}`,
-        headers
-      ).then((res) => res.json())
+      const data: PokemonDataRaw = await fetch(`${baseURL}${pokemon}`, headers)
+        .then((res) => res.json())
+        .then(async (data) => {
+          const extraData = await fetch(data.species.url, headers).then((res) =>
+            res.json()
+          )
+          return { ...data, ...extraData }
+        })
 
       const dataToSend = await formData(data)
       return res.status(200).json(dataToSend)
